@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#09142f"><meta name="description" content="DoubtBook — your personal academic doubt library.">
+<title>DoubtBook</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/icon-192.png"><link rel="apple-touch-icon" href="assets/icon-192.png"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section id="welcomeScreen" class="welcome-screen">
+  <div class="welcome-box">
+    <img src="assets/icon-192.png" alt="DoubtBook logo" class="welcome-icon">
+    <div class="eyebrow">YOUR PERSONAL LEARNING SPACE</div>
+    <h1>Welcome to <span>DoubtBook</span></h1>
+    <p>Your doubts stay saved in this browser on this device. Start by entering your name.</p>
+    <form id="loginForm"><label for="studentName">What should we call you?</label><input id="studentName" maxlength="40" autocomplete="given-name" placeholder="Enter your name" required><button class="primary-btn wide" type="submit">Enter DoubtBook →</button></form>
+    <small>No account or internet sign-up needed. Your data stays in this browser.</small>
+  </div>
+</section>
+<div id="appShell" class="app-shell" hidden>
+<aside class="sidebar">
+  <a class="brand" href="#"><img src="assets/icon-192.png" alt="" class="brand-icon"><span>Doubt<span class="brand-blue">Book</span></span></a>
+  <div class="side-label">WORKSPACE</div>
+  <button class="nav-link active" data-view="dashboard">▦ <span>Dashboard</span></button>
+  <button class="nav-link" data-view="all">▤ <span>All doubts</span></button>
+  <button class="nav-link" data-view="revision">↻ <span>Revision</span></button><button class="nav-link" data-view="calendar">▦ <span>Revision calendar</span></button>
+  <button class="nav-link" data-view="analytics">▥ <span>Analytics</span></button>
+  <div class="sidebar-note"><div class="note-mark">?</div><strong>Every doubt matters.</strong><p>Capture it today. Understand it tomorrow.</p></div>
+  <div class="side-footer">Saved privately on this device</div>
+</aside>
+<main class="main">
+<header class="topbar"><div><div class="eyebrow">YOUR LEARNING SPACE</div><h1 id="pageTitle">Dashboard</h1><p class="hello-line" id="helloLine"></p></div>
+<div class="top-actions"><span class="local-badge"><i></i> Local storage</span><button id="installBtn" class="install-btn" hidden>⇩ Install app</button><button id="backupBtn" class="utility-btn">↓ Backup</button><button id="restoreBtn" class="utility-btn">↑ Restore</button><input id="restoreFile" type="file" accept="application/json,.json" hidden><button id="logoutBtn" class="logout-btn">↪ Log out</button><button id="newDoubtTop" class="primary-btn">＋ Add doubt</button></div></header>
+<section id="dashboardView" class="view">
+<div class="welcome-card"><div><div class="eyebrow light">WELCOME BACK</div><h2>Your doubts.<br>Your <em>progress.</em></h2><p>A personal space to capture questions, track progress and revisit what you've learned.</p><button class="white-btn" id="startAdding">＋ Capture a doubt</button></div><img src="assets/doubtbook-logo.png" alt="DoubtBook logo" class="hero-logo"></div>
+<div class="stats-grid">
+<article class="stat-card"><span class="stat-icon purple">?</span><div><p>Total doubts</p><strong id="totalStat">0</strong></div></article>
+<article class="stat-card"><span class="stat-icon orange">◷</span><div><p>Unsolved</p><strong id="unsolvedStat">0</strong></div></article>
+<article class="stat-card"><span class="stat-icon blue">↻</span><div><p>Attempted</p><strong id="attemptedStat">0</strong></div></article>
+<article class="stat-card"><span class="stat-icon green">✓</span><div><p>Resolved</p><strong id="resolvedStat">0</strong></div></article>
+</div>
+<div class="section-heading"><div><div class="eyebrow">KEEP MOVING FORWARD</div><h2>Recent doubts</h2></div><button class="text-btn" data-goto="all">View all →</button></div><div id="recentList" class="doubt-list"></div>
+</section>
+<section id="allView" class="view" hidden><div class="toolbar"><div class="search-wrap">⌕ <input id="searchInput" type="search" placeholder="Search doubts, subjects or chapters…"></div><select id="subjectFilter"><option value="all">All subjects</option><option>Mathematics</option><option>Science</option><option>English</option><option>Social Science</option><option>Hindi</option><option>Computer</option><option>Other</option></select><select id="statusFilter"><option value="all">All statuses</option><option>Unsolved</option><option>Attempted</option><option>Resolved</option></select></div><div id="allList" class="doubt-list"></div></section>
+<section id="revisionView" class="view" hidden><div class="intro-panel"><div class="eyebrow">REVISIT & REINFORCE</div><h2>Revision corner</h2><p>Resolved doubts appear here so you can revisit important concepts.</p></div><div id="revisionList" class="doubt-list"></div></section>
+<section id="calendarView" class="view" hidden><div class="intro-panel"><div class="eyebrow">PLAN YOUR REVISION</div><h2>Revision calendar</h2><p>See doubts with revision dates, grouped by day.</p></div><div id="calendarList" class="doubt-list"></div></section><section id="analyticsView" class="view" hidden><div class="intro-panel"><div class="eyebrow">YOUR LEARNING SNAPSHOT</div><h2>Analytics</h2><p>Understand how your doubts are distributed across subjects and statuses.</p></div><div class="stats-grid analytics-stats"><article class="stat-card"><div><p>Total doubts</p><strong id="aTotal">0</strong></div></article><article class="stat-card"><div><p>Resolved</p><strong id="aResolved">0</strong></div></article><article class="stat-card"><div><p>Resolution rate</p><strong id="aRate">0%</strong></div></article></div><div class="panel"><h3>Subject-wise doubts</h3><div id="subjectBars" class="bars"></div></div></section>
+</main></div>
+<dialog id="doubtDialog"><form id="doubtForm">
+<div class="dialog-head"><div><div class="eyebrow">BUILD YOUR DOUBT LIBRARY</div><h2>Add a doubt</h2></div><button type="button" class="close-btn" id="closeDialog">×</button></div>
+<label for="question">Write your doubt (optional if you attach an image)</label><textarea id="question" rows="3" maxlength="600" placeholder="Type your question or describe what you are stuck on…"></textarea>
+<div class="form-grid"><div><label for="subject">Subject <span>*</span></label><select id="subject" required><option value="">Choose subject</option><option>Mathematics</option><option>Science</option><option>English</option><option>Social Science</option><option>Hindi</option><option>Computer</option><option>Other</option></select></div><div><label for="chapter">Chapter</label><input id="chapter" maxlength="100" placeholder="e.g. Life Processes"></div></div>
+<div class="form-grid"><div><label for="questionRef">Question number / reference</label><input id="questionRef" maxlength="80" placeholder="e.g. Exercise 3.2, Q. 7"></div><div><label for="status">Status</label><select id="status"><option>Unsolved</option><option>Attempted</option><option>Resolved</option></select></div></div>
+<label for="questionImage">Attach question image (optional)</label><input id="questionImage" class="file-input" type="file" accept="image/*" capture="environment"><small class="field-hint">Upload a photo or take a picture of a handwritten / printed question. Image is compressed before saving.</small>
+<div id="imagePreviewWrap" class="image-preview-wrap" hidden><img id="imagePreview" alt="Question preview"><button type="button" id="removeImage" class="remove-image">Remove image</button></div>
+<div class="form-grid"><div><label for="revisionDate">Revision date</label><input id="revisionDate" type="date"></div><div class="image-note">Images and doubts are saved only in this browser on this device.</div></div>
+<div class="dialog-actions"><button type="button" class="cancel-btn" id="cancelDialog">Cancel</button><button class="primary-btn" type="submit">Save doubt</button></div>
+</form></dialog>
+<div id="toast" class="toast" role="status"></div><script src="app.js"></script>
+</body></html>
